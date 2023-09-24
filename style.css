@@ -19,14 +19,16 @@ body{
 }
 
 .container {
+    --gridSize: 16; 
     width: 960px;
     height: 960px;   
     border: 1px double black;
     display: grid;
     margin: 2rem;
-    grid-template-columns: repeat(16, 1fr);
-    grid-template-rows: repeat(16, 1fr);
+    grid-template-columns: repeat(var(--gridSize), 1fr);
+    grid-template-rows: repeat(var(--gridSize), 1fr);
 }
+
 
 .box {
     background-color: antiquewhite;
