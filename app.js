@@ -6,11 +6,19 @@ document.body.appendChild(container);
 // getting grid sizes from customer input
 let gridSize = 0;
 const gridSizeInput = document.createElement("input");
+gridSizeInput.classList.add("input-grid-size")
+gridSizeInput.setAttribute("id", "gridSizeInput")
 document.body.insertBefore(gridSizeInput, container);
 gridSizeInput.addEventListener('keyup', (e) => {  
-   gridSize = parseIint(e.target.value);
+   gridSize = parseInt(e.target.value);
    container.style.setProperty("--gridSize", gridSize)
 });
+
+const labelForInput =  document.createElement("label");
+labelForInput.innerHTML= "Type in your grid size:";
+labelForInput.setAttribute("for", "gridSizeInput")
+document.body.insertBefore(labelForInput, gridSizeInput);
+
 
 
 // draw the grid
