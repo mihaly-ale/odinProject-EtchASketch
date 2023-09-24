@@ -43,7 +43,7 @@ body{
     margin-top: 2rem;
     border: none;
     padding: .5rem;
-    display: inline-block;
+    display: inline-block;git reset
 
     &:hover{
         background-color: rgb(194, 194, 201);
