@@ -1,19 +1,19 @@
 *,
 ::after,
-::before{
-box-sizing: border-box;    
-margin: 0;
-padding :0
+::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
 }
 
-html{
+html {
     display: gird;
     place-items: center;
 }
 
-body{
+body {
     background-color: cadetblue;
-    color:black;
+    color: black;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -25,8 +25,8 @@ body{
 .h1 {
     color: rgb(3, 3, 3);
     font-size: 3rem;
-    font-family: Impact; 
-    padding-top: 2rem;   
+    font-family: Impact;
+    padding-top: 2rem;
 }
 
 .game-container {
@@ -37,14 +37,14 @@ body{
 .input-section {
     display: flex;
     align-items: center;
-    gap: .5rem;  
+    gap: .5rem;
 }
 
 .label-for-input {
     font-size: 1.5rem;
 }
 
-.input-grid-size{
+.input-grid-size {
     width: 5rem;
     border-radius: 2px;
     background-color: rgb(206, 232, 234);
@@ -53,26 +53,26 @@ body{
     padding: .5rem;
     display: inline-block;
 
-    &:hover{
+    &:hover {
         background-color: rgb(161, 202, 203, .75);
     }
 }
 
 .draw-grid-button {
-  padding: .5rem 1.25rem;
-  border: none;
-  border-radius: 2px;
-  background-color: rgb(161, 202, 203);
-  color: rgb(3, 3, 3);
+    padding: .5rem 1.25rem;
+    border: none;
+    border-radius: 2px;
+    background-color: rgb(161, 202, 203);
+    color: rgb(3, 3, 3);
 
-  &:hover {
-    outline: 1px solid rgb(161, 202, 203);
-  }
-  
+    &:hover {
+        outline: 1px solid rgb(161, 202, 203);
+    }
+
 }
 
 .game-grid {
-    --gridSize: 0; 
+    --gridSize: 0;
     max-width: 960px;
     border: 1px double rgb(3, 3, 3, .15);
     display: grid;
@@ -83,11 +83,6 @@ body{
 
 .box {
     background-color: antiquewhite;
-    border: 1px solid red;
-    min-width: 50px;
-    min-height: 50px;
+    border: 1px solid rgb(235, 134, 134, .25);
+    aspect-ratio: 1/1;
 }
-
-
-
-
