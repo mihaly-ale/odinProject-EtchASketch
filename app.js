@@ -18,7 +18,8 @@ gameContainer.appendChild(inputSection);
 // label for the input element
 const labelForInput =  document.createElement("label");
 labelForInput.innerHTML= "Type in your grid size:";
-labelForInput.setAttribute("for", "gridSizeInput")
+labelForInput.setAttribute("for", "gridSizeInput");
+labelForInput.classList.add("label-for-input");
 inputSection.appendChild(labelForInput);
 
 // getting grid sizes from customer input
@@ -35,11 +36,13 @@ inputSection.appendChild(gridSizeInput);
 //add button to draw the grid
 const drawGridBtn = document.createElement("button");
 drawGridBtn.innerText = "draw grid";
-drawGridBtn.classList.add("make-grid-button")
+drawGridBtn.classList.add("draw-grid-button")
 inputSection.appendChild(drawGridBtn);
 drawGridBtn.addEventListener('click', () =>{
   drawGrid(gridSize)
 });
+
+
 
 
 const gameSettings = document.createElement("section");
@@ -65,8 +68,4 @@ function drawGrid(gridSize) {
 }
 
 
-// todos:
-
-// clear grid when creating new
-// after TOP
 

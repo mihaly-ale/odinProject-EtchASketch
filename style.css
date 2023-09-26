@@ -18,12 +18,57 @@ body{
     align-items: center;
     flex-direction: column;
     height: 100vh;
+    max-width: 1100px;
+    margin: 0 3rem;
 }
 
 .h1 {
     color: rgb(3, 3, 3);
     font-size: 3rem;
-    font-family: Impact;    
+    font-family: Impact; 
+    padding-top: 2rem;   
+}
+
+.game-container {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.input-section {
+    display: flex;
+    align-items: center;
+    gap: .5rem;  
+}
+
+.label-for-input {
+    font-size: 1.5rem;
+}
+
+.input-grid-size{
+    width: 5rem;
+    border-radius: 2px;
+    background-color: rgb(206, 232, 234);
+    color: black;
+    border: none;
+    padding: .5rem;
+    display: inline-block;
+
+    &:hover{
+        background-color: rgb(161, 202, 203, .75);
+    }
+}
+
+.draw-grid-button {
+  padding: .5rem 1.25rem;
+  border: none;
+  border-radius: 2px;
+  background-color: rgb(161, 202, 203);
+  color: rgb(3, 3, 3);
+
+  &:hover {
+    outline: 1px solid rgb(161, 202, 203);
+  }
+  
 }
 
 .game-grid {
@@ -43,20 +88,6 @@ body{
     min-height: 50px;
 }
 
-.input-grid-size{
-    width: 5rem;
-    height: 2rem;
-    border-radius: 2px;
-    background-color: rgb(172, 172, 202);
-    color: black;
-    margin-top: 2rem;
-    border: none;
-    padding: .5rem;
-    display: inline-block;git reset
 
-    &:hover{
-        background-color: rgb(194, 194, 201);
-    }
-}
 
 
