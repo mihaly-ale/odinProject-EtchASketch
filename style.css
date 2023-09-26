@@ -14,8 +14,10 @@ html{
 body{
     background-color: cadetblue;
     color:black;
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .h1 {
