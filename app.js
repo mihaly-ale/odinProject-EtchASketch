@@ -66,15 +66,25 @@ function drawLine(e, color) {
   elem.style.backgroundColor = color;
 }
 
-function getColor() {
-  return "blue";
+function getColor(r, g, b) {
+  r = Math.floor(Math.random()*255);
+  g = Math.floor(Math.random()*255);
+  b = Math.floor(Math.random()*255);
+  console.log(r, g, b);
+  return `rgb(${r}, ${g}, ${b})`
 }
 
 const gameSettings = document.createElement("section");
 gameSettings.classList.add('game-settings')
-
-
 gameContainer.appendChild(gameSettings);
+
+const colorSettings = ["black", "random", "lighten", "eraser", "dark-mode"]
+for(let i = 0; i < colorSettings.length; i++) {
+  const elem = document.createElement("button");
+  elem.textContent = colorSettings[i];
+  elem.classList.add(colorSettings[i])
+  gameSettings.appendChild(elem);
+}
 
 
 
