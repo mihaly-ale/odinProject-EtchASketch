@@ -60,7 +60,7 @@ body {
     color: rgb(3, 3, 3);
 
     &:hover {
-        outline: 2px solid #f1f0ea;;
+        outline: 1px solid rgb(161, 202, 203);
     }
 }
 
@@ -100,4 +100,3 @@ body {
     }
 }
 
-.

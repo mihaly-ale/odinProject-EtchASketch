@@ -1,0 +1,8 @@
+dont  color square if it has color
+gamecontainer layout = add div for settings and grid to position next to each other
+
+fix gameSettings buttons (color, id, css)
+
+add parameters to getColor function (black, random, eraser, lighten, dark mode)
+
+refactor app.js (vraibales up, function down) ???
