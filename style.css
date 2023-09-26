@@ -18,6 +18,12 @@ body{
     place-items: center;
 }
 
+.h1 {
+    color: rgb(3, 3, 3);
+    font-size: 3rem;
+    font-family: Impact;    
+}
+
 .game-grid {
     --gridSize: 0; 
     max-width: 960px;

@@ -1,3 +1,14 @@
+//create base layout
+// h1 DONE
+// grid draw (label, inout, button)
+//game (control, gameGrid)
+const h1 = document.createElement("h1");
+h1.textContent = "Etch A Sketch";
+h1.classList.add("h1");
+document.body.appendChild(h1);
+
+
+
 // add container for boxes
 const gameGrid = document.createElement("div");
 gameGrid.classList.add("game-grid");
@@ -19,7 +30,6 @@ const labelForInput =  document.createElement("label");
 labelForInput.innerHTML= "Type in your grid size:";
 labelForInput.setAttribute("for", "gridSizeInput")
 document.body.insertBefore(labelForInput, gridSizeInput);
-
 
 //add button to draw the grid
 const drawGridBtn = document.createElement("button");
