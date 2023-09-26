@@ -10,13 +10,13 @@ gameContainer.classList.add("game-container");
 document.body.appendChild(gameContainer);
 
 //create inputSection (children: labelForInput, gridSizeInput, drawGridBtn)
-const inputSection =  document.createElement("section");
+const inputSection = document.createElement("section");
 inputSection.classList.add("input-section");
 gameContainer.appendChild(inputSection);
 
 // label for the input element
-const labelForInput =  document.createElement("label");
-labelForInput.innerHTML= "Type in your grid size:";
+const labelForInput = document.createElement("label");
+labelForInput.innerHTML = "Type in your grid size:";
 labelForInput.setAttribute("for", "gridSizeInput");
 labelForInput.classList.add("label-for-input");
 inputSection.appendChild(labelForInput);
@@ -26,10 +26,10 @@ const gridSizeInput = document.createElement("input");
 gridSizeInput.classList.add("input-grid-size")
 gridSizeInput.setAttribute("id", "gridSizeInput")
 inputSection.appendChild(gridSizeInput);
-let gridSize = 0;
-gridSizeInput.addEventListener('keyup', (e) => {  
-   gridSize = parseInt(e.target.value);
-   gameGrid.style.setProperty("--gridSize", gridSize)
+// updating css custom prop for grid
+let cssGridSize = 0;
+gridSizeInput.addEventListener('input', (e) => {
+  cssGridSize = parseInt(e.target.value);
 });
 
 //add button to draw the grid
@@ -37,8 +37,9 @@ const drawGridBtn = document.createElement("button");
 drawGridBtn.innerText = "draw grid";
 drawGridBtn.classList.add("draw-grid-button")
 inputSection.appendChild(drawGridBtn);
-drawGridBtn.addEventListener('click', () =>{
-  drawGrid(gridSize)
+drawGridBtn.addEventListener('click', () => {
+  const gridSize = gridSizeInput.value;
+  drawGrid(gridSize);
 });
 
 
@@ -52,19 +53,22 @@ gameContainer.appendChild(inputSection);
 gameContainer.appendChild(gameSettings);
 gameContainer.appendChild(gameGrid);
 
-
-
 // draw the grid
+
 function drawGrid(gridSize) {
-  console.log(gridSize)
-    let totalBoxesCount = gridSize * gridSize;
+  gameGrid.style.setProperty("--cssGridSize", cssGridSize)
+  // gameGrid.innerHTML = " ";
+  let totalBoxesCount = gridSize * gridSize;
+
+ 
     for (let i = 1; i <= totalBoxesCount; i++) {
-        const box = document.createElement("div");
-        // box.innerText = i;
-        box.classList.add("box");
-        gameGrid.appendChild(box);
+      const box = document.createElement("div");
+      box.classList.add("box");
+      gameGrid.appendChild(box);
     }
+ 
 }
+
 
 
 
