@@ -1,17 +1,17 @@
-// add grid container for boxes
-const container = document.createElement("div");
-container.classList.add("container");
-document.body.appendChild(container);
+// add container for boxes
+const gameGrid = document.createElement("div");
+gameGrid.classList.add("game-grid");
+document.body.appendChild(gameGrid);
 
 // getting grid sizes from customer input
 let gridSize = 0;
 const gridSizeInput = document.createElement("input");
 gridSizeInput.classList.add("input-grid-size")
 gridSizeInput.setAttribute("id", "gridSizeInput")
-document.body.insertBefore(gridSizeInput, container);
+document.body.insertBefore(gridSizeInput, gameGrid);
 gridSizeInput.addEventListener('keyup', (e) => {  
    gridSize = parseInt(e.target.value);
-   container.style.setProperty("--gridSize", gridSize)
+   gameGrid.style.setProperty("--gridSize", gridSize)
 });
 
 // label for the input element
@@ -25,7 +25,7 @@ document.body.insertBefore(labelForInput, gridSizeInput);
 const drawGridBtn = document.createElement("button");
 drawGridBtn.innerText = "draw grid";
 drawGridBtn.classList.add("make-grid-button")
-document.body.insertBefore(drawGridBtn, container);
+document.body.insertBefore(drawGridBtn, gameGrid);
 drawGridBtn.addEventListener('click', () =>{
   drawGrid(gridSize)
 });
@@ -38,10 +38,13 @@ function drawGrid(gridSize) {
         const box = document.createElement("div");
         box.innerText = i;
         box.classList.add("box");
-        container.appendChild(box);
+        gameGrid.appendChild(box);
     }
 }
 
 
+// todos:
 
+// clear grid when creating new
+// after TOP
 
