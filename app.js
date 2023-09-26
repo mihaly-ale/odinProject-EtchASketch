@@ -42,9 +42,6 @@ drawGridBtn.addEventListener('click', () => {
   drawGrid(gridSize);
 });
 
-
-
-
 const gameSettings = document.createElement("section");
 gameSettings.classList.add('game-settings')
 const gameGrid = document.createElement("section");
@@ -56,17 +53,14 @@ gameContainer.appendChild(gameGrid);
 // draw the grid
 
 function drawGrid(gridSize) {
-  gameGrid.style.setProperty("--cssGridSize", cssGridSize)
-  // gameGrid.innerHTML = " ";
-  let totalBoxesCount = gridSize * gridSize;
-
- 
+  gameGrid.style.setProperty("--cssGridSize", cssGridSize);
+  gameGrid.innerHTML = ""; //clear previous grid
+  let totalBoxesCount = gridSize * gridSize; 
     for (let i = 1; i <= totalBoxesCount; i++) {
       const box = document.createElement("div");
       box.classList.add("box");
       gameGrid.appendChild(box);
-    }
- 
+    } 
 }
 
 
