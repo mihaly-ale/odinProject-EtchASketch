@@ -6,3 +6,5 @@ fix gameSettings buttons (color, id, css)
 add parameters to getColor function (black, random, eraser, lighten, dark mode)
 
 refactor app.js (vraibales up, function down) ???
+
+blabla
