@@ -42,26 +42,40 @@ drawGridBtn.addEventListener('click', () => {
   drawGrid(gridSize);
 });
 
-const gameSettings = document.createElement("section");
-gameSettings.classList.add('game-settings')
-const gameGrid = document.createElement("section");
-gameGrid.classList.add("game-grid");
-gameContainer.appendChild(inputSection);
-gameContainer.appendChild(gameSettings);
-gameContainer.appendChild(gameGrid);
-
 // draw the grid
-
 function drawGrid(gridSize) {
   gameGrid.style.setProperty("--cssGridSize", cssGridSize);
   gameGrid.innerHTML = ""; //clear previous grid
   let totalBoxesCount = gridSize * gridSize; 
     for (let i = 1; i <= totalBoxesCount; i++) {
       const box = document.createElement("div");
+      box.innerText = i;
       box.classList.add("box");
       gameGrid.appendChild(box);
     } 
 }
+
+// draw lines
+const gameGrid = document.createElement("section");
+gameGrid.classList.add("game-grid");
+gameContainer.appendChild(gameGrid);
+gameGrid.addEventListener('mouseover', drawLine);
+function drawLine(e, color) {
+  const elem = e.target;
+  color = getColor();  
+  elem.style.backgroundColor = color;
+}
+
+function getColor() {
+  return "blue";
+}
+
+const gameSettings = document.createElement("section");
+gameSettings.classList.add('game-settings')
+
+
+gameContainer.appendChild(gameSettings);
+
 
 
 
