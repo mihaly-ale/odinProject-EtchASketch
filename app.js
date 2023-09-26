@@ -82,7 +82,8 @@ const colorSettings = ["black", "random", "lighten", "eraser", "dark-mode"]
 for(let i = 0; i < colorSettings.length; i++) {
   const elem = document.createElement("button");
   elem.textContent = colorSettings[i];
-  elem.classList.add(colorSettings[i])
+  elem.classList.add(colorSettings[i]);
+  elem.setAttribute("id", colorSettings[i])
   gameSettings.appendChild(elem);
 }
 
