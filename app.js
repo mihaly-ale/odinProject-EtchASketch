@@ -4,52 +4,45 @@ h1.textContent = "Etch A Sketch";
 h1.classList.add("h1");
 document.body.appendChild(h1);
 
-
+// create slider for drawGrid input paramter
 const gridSizerContainer =  document.createElement("div");
 document.body.appendChild(gridSizerContainer);
-gridSizerContainer.setAttribute("id", "grid-sizer-container")
+gridSizerContainer.setAttribute("id", "grid-sizer-container");
+gridSizerContainer.setAttribute("class", "grid-sizer-container");
 const gridSizer = document.createElement("input");
 gridSizer.setAttribute("type", "range");
 gridSizer.setAttribute("min", "2");
 gridSizer.setAttribute("max", "16");
 gridSizer.setAttribute("id", "grid-sizer");
+gridSizer.setAttribute("class", "grid-sizer");
 gridSizer.setAttribute("value", "8"); 
 const gridSizerLabel =  document.createElement('label');
 gridSizerLabel.setAttribute("for", "grid-sizer");
 gridSizerLabel.setAttribute("id", "grid-sizer-label");
-gridSizerLabel.classList.add("space-between")
-const spanMin = document.createElement("span");
-const spanMax = document.createElement("span");
-gridSizerLabel.appendChild(spanMin);
-spanMin.textContent = "2"
-gridSizerLabel.appendChild(spanMax);
-spanMax.textContent = "16";
-
+gridSizerLabel.classList.add("grid-sizer-label")
+const span = document.createElement("span");
+span.textContent = `${gridSizer.value} x ${gridSizer.value}`;
+gridSizerLabel.appendChild(span);
+// const spanMax = document.createElement("span");
+// gridSizerLabel.appendChild(spanMin);
+// spanMin.textContent = "2"
+// gridSizerLabel.appendChild(spanMax);
+// spanMax.textContent = "16";
 gridSizerContainer.appendChild(gridSizer);
 gridSizerContainer.appendChild(gridSizerLabel);
 
-// //add button to draw the grid
-// const drawGridBtn = document.createElement("button");
-// drawGridBtn.innerText = "draw grid";
-// drawGridBtn.classList.add("draw-grid-button")
-// inputSection.appendChild(drawGridBtn);
-// drawGridBtn.addEventListener('click', () => {
-//   const gridSize = gridSizeInput.value;
-//   drawGrid(gridSize);
-// });
-
-//create layout for game (children: inputSection, gameSettings, gameGrid)
-const gameContainer = document.createElement("div");
-gameContainer.classList.add("game-container");
-document.body.appendChild(gameContainer);
-
-
+// event listenet to trigger drawGrid
 gridSizer.addEventListener("click", (e) => {
   const gridSize = e.target.value;
   drawGrid(gridSize);
 });
 
+//create layout for game (children: gameSettings, gameGrid)
+const gameContainer = document.createElement("div");
+gameContainer.classList.add("game-container");
+document.body.appendChild(gameContainer);
 
+// draw the grid, create child gameGrid
 function drawGrid(gridSize) {  
   gameGrid.style.setProperty("--cssGridSize", gridSize);
   gameGrid.innerHTML = ""; //clear previous grid
@@ -62,7 +55,7 @@ function drawGrid(gridSize) {
     } 
 }
 
-// draw lines
+// draw lines in the grid
 const gameGrid = document.createElement("section");
 gameGrid.classList.add("game-grid");
 gameContainer.appendChild(gameGrid);
@@ -73,6 +66,7 @@ function drawLine(e, color) {
   elem.style.backgroundColor = color;
 }
 
+// create game settings section
 const gameSettings = document.createElement("section");
 gameSettings.classList.add('game-settings');
 gameContainer.insertBefore(gameSettings, gameGrid);
