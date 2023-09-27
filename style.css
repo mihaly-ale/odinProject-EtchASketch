@@ -25,7 +25,10 @@ body {
 
 .game-container {
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 5rem;
+    display: flex;
+    justify-content: flex-start;
+    gap: 3rem;
 }
 
 .input-section {
@@ -64,12 +67,18 @@ body {
     }
 }
 
+.flex-row {
+    display: flex;
+
+}
+
 .game-grid {
-    --cssGridSize: 0;
+    --cssGridSize: 16;
     max-width: 960px;
     border: 1px double rgb(3, 3, 3, .15);
     display: grid;
-    margin: 2rem;
+    align-items: stretch;
+    flex: 1 1 auto;  
     grid-template-columns: repeat(var(--cssGridSize), 1fr);
     grid-template-rows: repeat(var(--cssGridSize), 1fr);
 }
@@ -85,18 +94,18 @@ body {
     flex-direction: column;
     gap: 3rem;
 
-    button{
+    button {
         width: 120px;
         border: none;
         border-radius: 3px;
-        background-color:rgb(161, 202, 203, .75);
+        background-color: rgb(161, 202, 203, .75);
         color: black;
         padding: .75rem 1.5rem;
 
         &:hover {
-            outline: 2px solid #f1f0ea;;
+            outline: 2px solid #f1f0ea;
+            ;
         }
-        
+
     }
 }
-

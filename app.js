@@ -4,15 +4,16 @@ h1.textContent = "Etch A Sketch";
 h1.classList.add("h1");
 document.body.appendChild(h1);
 
+//create inputSection (children: labelForInput, gridSizeInput, drawGridBtn)
+const inputSection = document.createElement("section");
+inputSection.classList.add("input-section");
+document.body.appendChild(inputSection);
+
 //create layout for game (children: inputSection, gameSettings, gameGrid)
 const gameContainer = document.createElement("div");
 gameContainer.classList.add("game-container");
 document.body.appendChild(gameContainer);
 
-//create inputSection (children: labelForInput, gridSizeInput, drawGridBtn)
-const inputSection = document.createElement("section");
-inputSection.classList.add("input-section");
-gameContainer.appendChild(inputSection);
 
 // label for the input element
 const labelForInput = document.createElement("label");
@@ -66,17 +67,17 @@ function drawLine(e, color) {
   elem.style.backgroundColor = color;
 }
 
+const gameSettings = document.createElement("section");
+gameSettings.classList.add('game-settings');
+gameContainer.insertBefore(gameSettings, gameGrid);
+
 function getColor(r, g, b) {
   r = Math.floor(Math.random()*255);
   g = Math.floor(Math.random()*255);
   b = Math.floor(Math.random()*255);
-  console.log(r, g, b);
+  // console.log(r, g, b);
   return `rgb(${r}, ${g}, ${b})`
 }
-
-const gameSettings = document.createElement("section");
-gameSettings.classList.add('game-settings')
-gameContainer.appendChild(gameSettings);
 
 const colorSettings = ["black", "random", "lighten", "eraser", "dark-mode"]
 for(let i = 0; i < colorSettings.length; i++) {
@@ -86,6 +87,11 @@ for(let i = 0; i < colorSettings.length; i++) {
   elem.setAttribute("id", colorSettings[i])
   gameSettings.appendChild(elem);
 }
+
+
+
+
+
 
 
 
