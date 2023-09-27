@@ -15,7 +15,7 @@ gridSizer.setAttribute("min", "2");
 gridSizer.setAttribute("max", "16");
 gridSizer.setAttribute("id", "grid-sizer");
 gridSizer.setAttribute("class", "grid-sizer");
-gridSizer.setAttribute("value", "8"); 
+gridSizer.setAttribute("value", "10"); 
 const gridSizerLabel =  document.createElement('label');
 gridSizerLabel.setAttribute("for", "grid-sizer");
 gridSizerLabel.setAttribute("id", "grid-sizer-label");
@@ -23,42 +23,49 @@ gridSizerLabel.classList.add("grid-sizer-label")
 const span = document.createElement("span");
 span.textContent = `${gridSizer.value} x ${gridSizer.value}`;
 gridSizerLabel.appendChild(span);
-// const spanMax = document.createElement("span");
-// gridSizerLabel.appendChild(spanMin);
-// spanMin.textContent = "2"
-// gridSizerLabel.appendChild(spanMax);
-// spanMax.textContent = "16";
 gridSizerContainer.appendChild(gridSizer);
 gridSizerContainer.appendChild(gridSizerLabel);
-
-// event listenet to trigger drawGrid
-gridSizer.addEventListener("click", (e) => {
-  const gridSize = e.target.value;
-  drawGrid(gridSize);
-});
 
 //create layout for game (children: gameSettings, gameGrid)
 const gameContainer = document.createElement("div");
 gameContainer.classList.add("game-container");
 document.body.appendChild(gameContainer);
 
+//create initial game grid
+const gameGrid = document.createElement("section");
+const initialGridSize = gridSizer.value;
+gameGrid.style.setProperty("--cssGridSize", initialGridSize);
+let totalBoxesCount = initialGridSize * initialGridSize; 
+for (let i = 1; i <= totalBoxesCount; i++) {
+  const box = document.createElement("div");
+  gameGrid.appendChild(box);
+  box.classList.add("box");
+}
+gameGrid.classList.add("game-grid");
+gameGrid.classList.add("grid-size-default"); // 
+gameContainer.appendChild(gameGrid);
+
+// event listener to trigger drawGrid
+gridSizer.addEventListener("click", (e) => {
+  const gridSize = e.target.value;
+  drawGrid(gridSize);
+});
+
 // draw the grid, create child gameGrid
 function drawGrid(gridSize) {  
-  gameGrid.style.setProperty("--cssGridSize", gridSize);
-  gameGrid.innerHTML = ""; //clear previous grid
-  let totalBoxesCount = gridSize * gridSize; 
+  // gameGrid.style.setProperty("--cssGridSize", gridSize);
+  gameGrid.classList.replace("grid-size-default", "grid-size-updated");
+  gameGrid.innerHTML = ""; //clear previous grid  
     for (let i = 1; i <= totalBoxesCount; i++) {
       const box = document.createElement("div");
-      box.innerText = i;
-      box.classList.add("box");
+      box.innerText = i;     
       gameGrid.appendChild(box);
     } 
 }
 
+
+
 // draw lines in the grid
-const gameGrid = document.createElement("section");
-gameGrid.classList.add("game-grid");
-gameContainer.appendChild(gameGrid);
 gameGrid.addEventListener('mouseover', drawLine);
 function drawLine(e, color) {
   const elem = e.target;
