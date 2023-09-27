@@ -49,25 +49,19 @@ body {
     justify-content: flex-start;
     gap: 3rem;
 
-    & .grid-size-default {
-        -cssGridSize: 0;
+    & .grid-size {
         grid-template-columns: repeat(var(--cssGridSize), 1fr);
         grid-template-rows: repeat(var(--cssGridSize), 1fr);
     }
-
-    & .grid-size-updated {
-        --cssGridSize: 16;
-        grid-template-columns: repeat(var(--cssGridSize), 1fr);
-        grid-template-rows: repeat(var(--cssGridSize), 1fr);
-    }
-
 
     & .game-grid {
         max-width: 960px;
         border: 1px double rgb(3, 3, 3, .15);
         display: grid;
         align-items: stretch;
-        flex: 1 1 auto;       
+        /* recheck this how to have it in the .grid-size */
+        flex-basis: auto;
+        flex-grow: 1;
 
         & .box {
             background-color: antiquewhite;
