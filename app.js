@@ -15,7 +15,7 @@ gridSizer.setAttribute("min", "2");
 gridSizer.setAttribute("max", "16");
 gridSizer.setAttribute("id", "grid-sizer");
 gridSizer.setAttribute("class", "grid-sizer");
-gridSizer.setAttribute("value", "4");
+gridSizer.setAttribute("value", "3");
 const gridSizerLabel = document.createElement('label');
 gridSizerLabel.setAttribute("for", "grid-sizer");
 gridSizerLabel.setAttribute("id", "grid-sizer-label");
@@ -32,30 +32,37 @@ gameContainer.classList.add("game-container");
 document.body.appendChild(gameContainer);
 
 //create initial grid for game
-document.addEventListener('DOMContentLoaded', drawGrid)
+let initialGridSize = gridSizer.value;
 const gameGrid = document.createElement("section");
-function drawGrid(){
-  const initialGridSize = gridSizer.value;
-  gameGrid.style.setProperty("--cssGridSize", initialGridSize);
-  gameGrid.classList.add("game-grid");
+gameGrid.style.setProperty("--cssGridSize", initialGridSize);
+gameGrid.classList.add("game-grid");
+
+function drawGrid(initialGridSize) {
   let totalBoxesCount = initialGridSize * initialGridSize;
   for (let i = 1; i <= totalBoxesCount; i++) {
     const box = document.createElement("div");
     box.classList.add("box");
     gameGrid.appendChild(box);
   }
-  gameContainer.appendChild(gameGrid);
 }
+document.addEventListener('DOMContentLoaded', () => {
+  drawGrid(initialGridSize);
+  gameContainer.appendChild(gameGrid);
+})
 
-
-
-
+gridSizer.addEventListener('click', (e) => {
+  const newGridSize = e.target.value;
+  gameGrid.style.setProperty("--cssGridSize", newGridSize);
+  // initialGridSize = newGridSize;
+  gameGrid.innerHTML = "";
+  drawGrid(newGridSize);
+})
 
 // draw lines in the grid
 function drawLine(e) {
   const elem = e.target;
-  if (elem )
-  console.log(elem, elem.style);
+  if (elem)
+    console.log(elem, elem.style);
   // elem.style.backgroundColor = yellow;
 }
 
