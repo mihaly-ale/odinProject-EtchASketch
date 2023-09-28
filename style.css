@@ -49,7 +49,6 @@ body {
     justify-content: flex-start;
     gap: 3rem;
 
-
     & .game-grid {
         max-width: 960px;
         border: 1px double rgb(3, 3, 3, .15);
