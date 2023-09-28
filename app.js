@@ -81,6 +81,7 @@ gridSizer.addEventListener('click', (e) => {
   const newGridSize = e.target.value;
   gameGrid.style.setProperty("--cssGridSize", newGridSize);
   gameGrid.innerHTML = "";
+  span.textContent = `${newGridSize} x ${newGridSize}`;
   drawGrid(newGridSize);
 })
 
