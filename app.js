@@ -31,6 +31,34 @@ const gameContainer = document.createElement("div");
 gameContainer.classList.add("game-container");
 document.body.appendChild(gameContainer);
 
+// create game settings section
+const gameSettings = document.createElement("section");
+gameSettings.classList.add('game-settings');
+gameContainer.appendChild(gameSettings);
+
+// create gameSettings buttons for color drawLines
+// const colorSettings = [
+//   {name: "black", value: "black"},
+//   {name: "random", value: randomColor()},
+//   {name: "lighten", value: lightenColor()},
+//   {name: "eraser", value: eraseColor()},
+//   {name: "dark-mode", value: switchMode()},
+// ]
+const colorSettings = [
+  { name: "black", setColor: "black" },
+  { name: "random", setColor: "yellow" },
+  { name: "lighten", setColor: "red" },
+  { name: "eraser", setColor: "brown" },
+  { name: "dark-mode", setColor: "blue" },
+]
+for (let i = 0; i < colorSettings.length; i++) {
+  const elem = document.createElement("button");
+  elem.textContent = colorSettings[i].name;
+  elem.classList.add(colorSettings[i].name, "color-setting");
+  elem.setAttribute("id", colorSettings[i].name)
+  gameSettings.appendChild(elem);
+}
+
 //create initial grid for game
 let initialGridSize = gridSizer.value;
 const gameGrid = document.createElement("section");
@@ -45,44 +73,45 @@ function drawGrid(initialGridSize) {
     gameGrid.appendChild(box);
   }
 }
-document.addEventListener('DOMContentLoaded', () => {
-  drawGrid(initialGridSize);
-  gameContainer.appendChild(gameGrid);
-})
+drawGrid(initialGridSize);
+gameContainer.appendChild(gameGrid);
 
+// when the slider clicked, the gameGrid gets the new size
 gridSizer.addEventListener('click', (e) => {
   const newGridSize = e.target.value;
   gameGrid.style.setProperty("--cssGridSize", newGridSize);
-  // initialGridSize = newGridSize;
   gameGrid.innerHTML = "";
   drawGrid(newGridSize);
 })
 
 // draw lines in the grid
+gameGrid.addEventListener('mouseover', drawLine);
 function drawLine(e) {
   const elem = e.target;
-  if (elem)
-    console.log(elem, elem.style);
-  // elem.style.backgroundColor = yellow;
+  const value = getColor(buttonName);
+  elem.style.backgroundColor = value;
 }
 
-// create game settings section
-const gameSettings = document.createElement("section");
-gameSettings.classList.add('game-settings');
-gameContainer.insertBefore(gameSettings, gameGrid);
+// create buttonName variable
+const buttons = document.querySelectorAll(".color-setting")
+let buttonName = "";
+buttons.forEach((button) => button.addEventListener('click', () => {
+  buttonName = button.id;
+  getColor(buttonName);
+}))
 
-// create buttons to choose colors for drawLine function
-const colorSettings = ["black", "random", "lighten", "eraser", "dark-mode"]
-for (let i = 0; i < colorSettings.length; i++) {
-  const elem = document.createElement("button");
-  elem.textContent = colorSettings[i];
-  elem.classList.add(colorSettings[i], "color-setting");
-  elem.setAttribute("id", colorSettings[i])
-  gameSettings.appendChild(elem);
+function getColor(buttonName) {
+  for (let i = 0; i < colorSettings.length; i++) {
+    ;
+    if (buttonName == colorSettings[i].name) {
+      // if button clicked equals the colorSetting array name, then it will return setColor value, which is a function
+      const setColor = colorSettings[i].setColor;
+      return setColor;
+    }
+  }
 }
 
-
-function getColor(r, g, b) {
+function randomColor(r, g, b) {
   r = Math.floor(Math.random() * 255);
   g = Math.floor(Math.random() * 255);
   b = Math.floor(Math.random() * 255);
