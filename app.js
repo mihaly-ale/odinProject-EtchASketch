@@ -15,7 +15,7 @@ gridSizer.setAttribute("min", "2");
 gridSizer.setAttribute("max", "16");
 gridSizer.setAttribute("id", "grid-sizer");
 gridSizer.setAttribute("class", "grid-sizer");
-gridSizer.setAttribute("value", "10");
+gridSizer.setAttribute("value", "4");
 const gridSizerLabel = document.createElement('label');
 gridSizerLabel.setAttribute("for", "grid-sizer");
 gridSizerLabel.setAttribute("id", "grid-sizer-label");
@@ -32,52 +32,48 @@ gameContainer.classList.add("game-container");
 document.body.appendChild(gameContainer);
 
 //create initial grid for game
+document.addEventListener('DOMContentLoaded', drawGrid)
 const gameGrid = document.createElement("section");
-const initialGridSize = gridSizer.value;
-// drawGrid function will use the updated value of the slider to modify --cssGridSize and so that grid will be re-drawn
-gameGrid.style.setProperty("--cssGridSize", initialGridSize);
-let totalBoxesCount = initialGridSize * initialGridSize;
-for (let i = 1; i <= totalBoxesCount; i++) {
-  const box = document.createElement("div");
-  box.classList.add("box");
-  gameGrid.appendChild(box);
-}
-gameGrid.classList.add("game-grid");
-gameGrid.classList.add("grid-size"); // 
-gameContainer.appendChild(gameGrid);
-
-// event listener to trigger re-draw the grid, when slider value is changed
-gridSizer.addEventListener("click", (e) => {
-  const newGridSize = e.target.value;
-  span.textContent = `${newGridSize} x ${newGridSize}`;
-  drawGrid(newGridSize);
-});
-
-// draw the grid, create child gameGrid
-function drawGrid(newGridSize) {
-  gameGrid.style.setProperty("--cssGridSize", newGridSize);
-  gameGrid.innerHTML = ""; //clear previous grid  
-  let totalBoxesCount = newGridSize * newGridSize;
+function drawGrid(){
+  const initialGridSize = gridSizer.value;
+  gameGrid.style.setProperty("--cssGridSize", initialGridSize);
+  gameGrid.classList.add("game-grid");
+  let totalBoxesCount = initialGridSize * initialGridSize;
   for (let i = 1; i <= totalBoxesCount; i++) {
     const box = document.createElement("div");
     box.classList.add("box");
-    box.innerText = i;
     gameGrid.appendChild(box);
   }
+  gameContainer.appendChild(gameGrid);
 }
 
+
+
+
+
 // draw lines in the grid
-gameGrid.addEventListener('mouseover', drawLine);
-function drawLine(e, color) {
+function drawLine(e) {
   const elem = e.target;
-  color = getColor();
-  elem.style.backgroundColor = color;
+  if (elem )
+  console.log(elem, elem.style);
+  // elem.style.backgroundColor = yellow;
 }
 
 // create game settings section
 const gameSettings = document.createElement("section");
 gameSettings.classList.add('game-settings');
 gameContainer.insertBefore(gameSettings, gameGrid);
+
+// create buttons to choose colors for drawLine function
+const colorSettings = ["black", "random", "lighten", "eraser", "dark-mode"]
+for (let i = 0; i < colorSettings.length; i++) {
+  const elem = document.createElement("button");
+  elem.textContent = colorSettings[i];
+  elem.classList.add(colorSettings[i], "color-setting");
+  elem.setAttribute("id", colorSettings[i])
+  gameSettings.appendChild(elem);
+}
+
 
 function getColor(r, g, b) {
   r = Math.floor(Math.random() * 255);
@@ -86,16 +82,6 @@ function getColor(r, g, b) {
   // console.log(r, g, b);
   return `rgb(${r}, ${g}, ${b})`
 }
-
-const colorSettings = ["black", "random", "lighten", "eraser", "dark-mode"]
-for (let i = 0; i < colorSettings.length; i++) {
-  const elem = document.createElement("button");
-  elem.textContent = colorSettings[i];
-  elem.classList.add(colorSettings[i]);
-  elem.setAttribute("id", colorSettings[i])
-  gameSettings.appendChild(elem);
-}
-
 
 
 

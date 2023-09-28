@@ -49,10 +49,6 @@ body {
     justify-content: flex-start;
     gap: 3rem;
 
-    & .grid-size {
-        grid-template-columns: repeat(var(--cssGridSize), 1fr);
-        grid-template-rows: repeat(var(--cssGridSize), 1fr);
-    }
 
     & .game-grid {
         max-width: 960px;
@@ -62,6 +58,8 @@ body {
         /* recheck this how to have it in the .grid-size */
         flex-basis: auto;
         flex-grow: 1;
+        grid-template-columns: repeat(var(--cssGridSize), 1fr);
+        grid-template-rows: repeat(var(--cssGridSize), 1fr);
 
         & .box {
             background-color: antiquewhite;
