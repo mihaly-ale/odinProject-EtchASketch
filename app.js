@@ -95,17 +95,27 @@ function drawLine(e) {
 
 // create buttonName variable
 const buttons = document.querySelectorAll(".color-setting")
+let anyIsActive = false;
 let buttonName = "";
-buttons.forEach((button) => button.addEventListener('click', () => {
+
+buttons.forEach((button) => button.addEventListener('click', (e) => {
   buttonName = button.id;
   getColor(buttonName);
+
+  if (anyIsActive) {
+    buttons.forEach(otherButton => otherButton.classList.remove("active"));
+    button.classList.add("active");
+  } else {
+    button.classList.add("active");
+    anyIsActive = !anyIsActive;
+  }
 }))
 
 function getColor(buttonName) {
   for (let i = 0; i < colorSettings.length; i++) {
     ;
     if (buttonName == colorSettings[i].name) {
-      // if button clicked equals the colorSetting array name, then it will return setColor value, which is a function
+      // console.log(buttonName)
       const setColor = colorSettings[i].setColor;
       return setColor;
     }

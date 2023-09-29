@@ -79,6 +79,7 @@ body {
             background-color: rgb(161, 202, 203, .75);
             color: black;
             padding: .75rem 1.5rem;
+            translate: all 100ms;
 
             &:hover {
                 outline: 2px solid #f1f0ea;
@@ -86,3 +87,9 @@ body {
         }
     }
 }
+
+.active {
+    transform: scale(1.1);
+    background-color: black;
+    color: rgb(161, 202, 203, .75);
+} 
