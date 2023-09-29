@@ -39,9 +39,9 @@ gameContainer.appendChild(gameSettings);
 //add buttons to choose color
 const colorSettings = [
   { name: "black", color: "black" },
-  { name: "random", color: "green"},
+  { name: "random", color: randomColor },
   { name: "lighten", color: "red" },
-  { name: "eraser", color: eraseColor},
+  { name: "eraser", color: eraseColor },
   { name: "dark-mode", color: "blue" },
 ]
 for (let i = 0; i < colorSettings.length; i++) {
@@ -95,41 +95,42 @@ buttons.forEach((button) => button.addEventListener('click', (e) => {
   }
 }))
 
-// draw lines in the grid
+// draw lines in the grid 
 gameGrid.addEventListener('mouseover', drawLine);
-function drawLine(e) {  
+function drawLine(e) {
   const square = e.target;
   const setColor = getColor(currentMode);
-  square.style.backgroundColor = setColor;
+
+  if (typeof setColor === "function") {
+    setColor(square);
+  } else {
+    square.style.backgroundColor = setColor;
+  }
 }
 
 function getColor(currentMode) {
   for (let i = 0; i < colorSettings.length; i++) {
     if (currentMode == colorSettings[i].name) {
-      const setColor = colorSettings[i].color;
-      // console.log(setColor)
-      return setColor;
+      return colorSettings[i].color;
     }
   }
 }
 
-// function randomColor(r, g, b) {
-//   r = Math.floor(Math.random() * 255);
-//   g = Math.floor(Math.random() * 255);
-//   b = Math.floor(Math.random() * 255);
-//   // console.log(r, g, b);
-//   return `rgb(${r}, ${g}, ${b})`
-// };
+function randomColor(r, g, b) {
+  r = Math.floor(Math.random() * 255);
+  g = Math.floor(Math.random() * 255);
+  b = Math.floor(Math.random() * 255);
+  // console.log(r, g, b);
+  return `rgb(${r}, ${g}, ${b})`
+};
 
-function eraseColor(e) { 
-  console.log(currentMode, e.target.className)
-  if (e.target.className === "box") {
-    if(currentMode === "eraser") {
-      e.target.style.backgroundColor = "antiquewhite";
-    } 
+function eraseColor(square) {
+  console.log(currentMode, square)
+  if (square.className === "box" && currentMode === "eraser") {
+    square.style.backgroundColor = "antiquewhite";
   }
 }
-gameGrid.addEventListener('mouseover', eraseColor) 
+
 
 
 
