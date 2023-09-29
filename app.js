@@ -36,20 +36,13 @@ const gameSettings = document.createElement("section");
 gameSettings.classList.add('game-settings');
 gameContainer.appendChild(gameSettings);
 
-// create gameSettings buttons for color drawLines
-// const colorSettings = [
-//   {name: "black", value: "black"},
-//   {name: "random", value: randomColor()},
-//   {name: "lighten", value: lightenColor()},
-//   {name: "eraser", value: eraseColor()},
-//   {name: "dark-mode", value: switchMode()},
-// ]
+//add buttons to choose color
 const colorSettings = [
-  { name: "black", setColor: "black" },
-  { name: "random", setColor: "yellow" },
-  { name: "lighten", setColor: "red" },
-  { name: "eraser", setColor: "brown" },
-  { name: "dark-mode", setColor: "blue" },
+  { name: "black", color: "black" },
+  { name: "random", color: "green"},
+  { name: "lighten", color: "red" },
+  { name: "eraser", color: eraseColor},
+  { name: "dark-mode", color: "blue" },
 ]
 for (let i = 0; i < colorSettings.length; i++) {
   const elem = document.createElement("button");
@@ -85,23 +78,14 @@ gridSizer.addEventListener('click', (e) => {
   drawGrid(newGridSize);
 })
 
-// draw lines in the grid
-gameGrid.addEventListener('mouseover', drawLine);
-function drawLine(e) {
-  const elem = e.target;
-  const value = getColor(buttonName);
-  elem.style.backgroundColor = value;
-}
-
-// create buttonName variable
+// create currentMode variable
 const buttons = document.querySelectorAll(".color-setting")
 let anyIsActive = false;
-let buttonName = "";
+let currentMode = "";
 
 buttons.forEach((button) => button.addEventListener('click', (e) => {
-  buttonName = button.id;
-  getColor(buttonName);
-
+  currentMode = button.id;
+  // visually distinguish currentMode by changeing button style
   if (anyIsActive) {
     buttons.forEach(otherButton => otherButton.classList.remove("active"));
     button.classList.add("active");
@@ -111,24 +95,43 @@ buttons.forEach((button) => button.addEventListener('click', (e) => {
   }
 }))
 
-function getColor(buttonName) {
+// draw lines in the grid
+gameGrid.addEventListener('mouseover', drawLine);
+function drawLine(e) {  
+  const square = e.target;
+  const setColor = getColor(currentMode);
+  square.style.backgroundColor = setColor;
+}
+
+function getColor(currentMode) {
   for (let i = 0; i < colorSettings.length; i++) {
-    ;
-    if (buttonName == colorSettings[i].name) {
-      // console.log(buttonName)
-      const setColor = colorSettings[i].setColor;
+    if (currentMode == colorSettings[i].name) {
+      const setColor = colorSettings[i].color;
+      // console.log(setColor)
       return setColor;
     }
   }
 }
 
-function randomColor(r, g, b) {
-  r = Math.floor(Math.random() * 255);
-  g = Math.floor(Math.random() * 255);
-  b = Math.floor(Math.random() * 255);
-  // console.log(r, g, b);
-  return `rgb(${r}, ${g}, ${b})`
+// function randomColor(r, g, b) {
+//   r = Math.floor(Math.random() * 255);
+//   g = Math.floor(Math.random() * 255);
+//   b = Math.floor(Math.random() * 255);
+//   // console.log(r, g, b);
+//   return `rgb(${r}, ${g}, ${b})`
+// };
+
+function eraseColor(e) { 
+  console.log(currentMode, e.target.className)
+  if (e.target.className === "box") {
+    if(currentMode === "eraser") {
+      e.target.style.backgroundColor = "antiquewhite";
+    } 
+  }
 }
+gameGrid.addEventListener('mouseover', eraseColor) 
+
+
 
 
 
