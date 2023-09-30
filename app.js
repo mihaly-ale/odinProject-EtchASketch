@@ -40,7 +40,7 @@ gameContainer.appendChild(gameSettings);
 const colorSettings = [
   { name: "black", color: "black" },
   { name: "random", color: randomColor },
-  { name: "lighten", color: "red" },
+  { name: "darken", color: darkenColor },
   { name: "eraser", color: eraseColor },
   { name: "dark-mode", color: "blue" },
 ]
@@ -116,19 +116,43 @@ function getColor(currentMode) {
   }
 }
 
-function randomColor(r, g, b) {
+function randomColor(square) {
   r = Math.floor(Math.random() * 255);
   g = Math.floor(Math.random() * 255);
   b = Math.floor(Math.random() * 255);
-  // console.log(r, g, b);
-  return `rgb(${r}, ${g}, ${b})`
+  square.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 };
 
 function eraseColor(square) {
-  console.log(currentMode, square)
+  // console.log(currentMode, square)
   if (square.className === "box" && currentMode === "eraser") {
     square.style.backgroundColor = "antiquewhite";
   }
+}
+
+function darkenColor (square) {
+let rgb = square.style.backgroundColor; // rgb(62, 62, 144)
+let pattern = /(\d{1,3})/gm;
+let matches = rgb.match(pattern);
+const [initialRed, initialGreen, initialBlue] = matches.map(Number);
+
+let currentRed = initialRed;
+let currentGreen = initialGreen;
+let currentBlue = initialBlue;
+
+square.addEventListener('click', (e) => { //this should work with mouseover
+  // Calculate the new color values based on the percentage reduction
+  let percentageValue = 10; 
+  currentRed -= initialRed * (percentageValue / 100);
+  currentGreen -= initialGreen * (percentageValue / 100);
+  currentBlue -= initialBlue * (percentageValue / 100);
+
+  // Update the background color of the square
+  square.style.backgroundColor = `rgb(${Math.round(currentRed)}, ${Math.round(currentGreen)}, ${Math.round(currentBlue)})`;
+  
+  // Log the updated color values
+  console.log(Math.round(currentRed), Math.round(currentGreen), Math.round(currentBlue));
+});
 }
 
 
