@@ -63,7 +63,7 @@ function drawGrid(initialGridSize) {
   for (let i = 1; i <= totalBoxesCount; i++) {
     const box = document.createElement("div");
     box.classList.add("box");
-    box.innerHTML = i;
+    box.setAttribute("style", "background-color: rgb(250, 235, 215)")
     gameGrid.appendChild(box);
   }
 }
