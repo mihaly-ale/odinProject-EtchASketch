@@ -44,10 +44,20 @@ const colorSettings = [
   { name: "eraser", color: eraseColor },
   { name: "dark-mode", color: "blue" },
 ]
-for (let i = 0; i < colorSettings.length; i++) {
+
+// create color picker
+const colorPicker = document.createElement("input");
+colorPicker.setAttribute("type", "color");
+colorPicker.setAttribute("value", "#800080");
+colorPicker.setAttribute("class", "color-picker")
+colorPicker.setAttribute("id", `${colorSettings[0].name}`)
+gameSettings.appendChild(colorPicker);
+
+// create color picking buttons
+for (let i = 1; i < colorSettings.length; i++) {
   const elem = document.createElement("button");
   elem.textContent = colorSettings[i].name;
-  elem.classList.add(colorSettings[i].name, "color-setting");
+  elem.classList.add("color-setting");
   elem.setAttribute("id", colorSettings[i].name)
   gameSettings.appendChild(elem);
 }
@@ -82,7 +92,7 @@ gridSizer.addEventListener('click', (e) => {
 // create currentMode variable
 const buttons = document.querySelectorAll(".color-setting")
 let anyIsActive = false;
-let currentMode = "";
+let currentMode = "color-picker";
 
 buttons.forEach((button) => button.addEventListener('click', (e) => {
   currentMode = button.id;
@@ -94,6 +104,7 @@ buttons.forEach((button) => button.addEventListener('click', (e) => {
     button.classList.add("active");
     anyIsActive = !anyIsActive;
   }
+  return currentMode;
 }))
 
 // draw lines in the grid 
@@ -101,7 +112,7 @@ gameGrid.addEventListener('mouseover', drawLine);
 function drawLine(e) {
   const square = e.target;
   const setColor = getColor(currentMode);
-
+  console.log(currentMode)
   if (typeof setColor === "function") {
     setColor(square);
   } else {
@@ -110,11 +121,21 @@ function drawLine(e) {
 }
 
 function getColor(currentMode) {
-  for (let i = 0; i < colorSettings.length; i++) {
-    if (currentMode == colorSettings[i].name) {
-      return colorSettings[i].color;
+
+  if (currentMode === "color-picker") {
+    return colorSettings[0].color;
+  } else {
+    for (let i = 1; i < colorSettings.length; i++) {
+      if (currentMode === colorSettings[i].name) {
+        return colorSettings[i].color;
+      }
     }
   }
+}
+
+
+function pickingColor(square) {
+  square.style.backgroundColor = colorPicker.value;
 }
 
 function randomColor(square) {
@@ -142,13 +163,13 @@ function darkenColor(square) {
   let currentBlue = initialBlue;
 
   square.addEventListener('click', (e) => {    // Calculate the new color values based on the percentage reduction
- 
-      let percentageValue = 10;
-      currentRed -= currentRed >= 0 ? initialRed * (percentageValue / 100) : 0; // reduce currentRed value with 10% of the initial color if currentRed greater than or equal 0, otherwise reduce it with 0;
-      currentGreen -= currentGreen >= 0 ? initialGreen * (percentageValue / 100) : 0;
-      currentBlue -= currentBlue >= 0 ? initialBlue * (percentageValue / 100) : 0;
-      console.log(`${Math.round(currentRed)}, ${Math.round(currentGreen)}, ${Math.round(currentBlue)}`);
-      square.style.backgroundColor = `rgb(${Math.round(currentRed)}, ${Math.round(currentGreen)}, ${Math.round(currentBlue)})`;
+
+    let percentageValue = 10;
+    currentRed -= currentRed >= 0 ? initialRed * (percentageValue / 100) : 0; // reduce currentRed value with 10% of the initial color if currentRed greater than or equal 0, otherwise reduce it with 0;
+    currentGreen -= currentGreen >= 0 ? initialGreen * (percentageValue / 100) : 0;
+    currentBlue -= currentBlue >= 0 ? initialBlue * (percentageValue / 100) : 0;
+    console.log(`${Math.round(currentRed)}, ${Math.round(currentGreen)}, ${Math.round(currentBlue)}`);
+    square.style.backgroundColor = `rgb(${Math.round(currentRed)}, ${Math.round(currentGreen)}, ${Math.round(currentBlue)})`;
   });
 }
 

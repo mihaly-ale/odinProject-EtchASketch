@@ -71,7 +71,29 @@ body {
         flex-direction: column;
         gap: 3rem;
 
-        button {
+        .color-picker {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 100px;
+            height: 100px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            align-self: center;
+
+            &::-webkit-color-swatch {
+                border-radius: 50%;
+                border: 7px solid #000000;
+            }
+
+            &::-moz-color-swatch {
+                border-radius: 50%;
+                border: 7px solid #000000;
+            }
+        }
+
+        .color-setting {
             width: 120px;
             aspect-ratio: 1/.5;
             border: none;
@@ -80,15 +102,17 @@ body {
             color: black;
             font-size: 1.15rem;
             padding: .75rem 1.5rem;
+            cursor: pointer;
             transition: all 100ms;
 
             &:hover {
-                outline: 1px solid antiquewhite;
+                transform: scale(1.2);
                 background-color: rgb(161, 202, 203, .85);
+                outline: 1px solid rgb(61, 56, 56);
             }
 
             &.active {
-                transform: scale(1.2);
+                outline: 1px solid antiquewhite;
                 background-color: rgb(61, 56, 56);
                 color: antiquewhite;
             }
