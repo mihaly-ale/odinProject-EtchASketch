@@ -38,7 +38,7 @@ gameContainer.appendChild(gameSettings);
 
 //add buttons to choose color
 const colorSettings = [
-  { name: "black", color: "rgb(0, 0, 0)" },
+  { name: "color-picker", color: pickingColor },
   { name: "random", color: randomColor },
   { name: "darken", color: darkenColor },
   { name: "eraser", color: eraseColor },
@@ -90,29 +90,30 @@ gridSizer.addEventListener('click', (e) => {
 })
 
 // create currentMode variable
-const buttons = document.querySelectorAll(".color-setting")
-let anyIsActive = false;
 let currentMode = "color-picker";
+const buttons = document.querySelectorAll(".color-setting");
+
+colorPicker.addEventListener("input", (e) => {
+  if (currentMode != "color-picker") {
+    currentMode = "color-picker";
+    buttons.forEach(button => button.classList.remove("active"));
+  }
+})
 
 buttons.forEach((button) => button.addEventListener('click', (e) => {
   currentMode = button.id;
-  // visually distinguish currentMode by changeing button style
-  if (anyIsActive) {
+  if (!button.classList.contains("active")) {
     buttons.forEach(otherButton => otherButton.classList.remove("active"));
     button.classList.add("active");
-  } else {
-    button.classList.add("active");
-    anyIsActive = !anyIsActive;
   }
-  return currentMode;
-}))
+})
+);
 
 // draw lines in the grid 
 gameGrid.addEventListener('mouseover', drawLine);
 function drawLine(e) {
   const square = e.target;
   const setColor = getColor(currentMode);
-  console.log(currentMode)
   if (typeof setColor === "function") {
     setColor(square);
   } else {
@@ -121,7 +122,6 @@ function drawLine(e) {
 }
 
 function getColor(currentMode) {
-
   if (currentMode === "color-picker") {
     return colorSettings[0].color;
   } else {
@@ -132,7 +132,6 @@ function getColor(currentMode) {
     }
   }
 }
-
 
 function pickingColor(square) {
   square.style.backgroundColor = colorPicker.value;
@@ -145,8 +144,7 @@ function randomColor(square) {
   square.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 };
 
-function eraseColor(square) {
-  // console.log(currentMode, square)
+function eraseColor(square) {  
   if (square.className === "box" && currentMode === "eraser") {
     square.style.backgroundColor = "rgb(250, 235, 215)";
   }
@@ -163,12 +161,10 @@ function darkenColor(square) {
   let currentBlue = initialBlue;
 
   square.addEventListener('click', (e) => {    // Calculate the new color values based on the percentage reduction
-
     let percentageValue = 10;
     currentRed -= currentRed >= 0 ? initialRed * (percentageValue / 100) : 0; // reduce currentRed value with 10% of the initial color if currentRed greater than or equal 0, otherwise reduce it with 0;
     currentGreen -= currentGreen >= 0 ? initialGreen * (percentageValue / 100) : 0;
     currentBlue -= currentBlue >= 0 ? initialBlue * (percentageValue / 100) : 0;
-    console.log(`${Math.round(currentRed)}, ${Math.round(currentGreen)}, ${Math.round(currentBlue)}`);
     square.style.backgroundColor = `rgb(${Math.round(currentRed)}, ${Math.round(currentGreen)}, ${Math.round(currentBlue)})`;
   });
 }
