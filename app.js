@@ -42,7 +42,7 @@ const colorSettings = [
   { name: "random", color: randomColor },
   { name: "darken", color: darkenColor },
   { name: "eraser", color: eraseColor },
-  { name: "dark-mode", color: "blue" },
+  { name: "clear", color:  clearGrid},
 ]
 
 // create color picker
@@ -80,9 +80,10 @@ function drawGrid(initialGridSize) {
 drawGrid(initialGridSize);
 gameContainer.appendChild(gameGrid);
 
+let newGridSize = "0";
 // when the slider clicked, the gameGrid gets the new size
 gridSizer.addEventListener('click', (e) => {
-  const newGridSize = e.target.value;
+  newGridSize = e.target.value;
   gameGrid.style.setProperty("--cssGridSize", newGridSize);
   gameGrid.innerHTML = "";
   span.textContent = `${newGridSize} x ${newGridSize}`;
@@ -105,6 +106,10 @@ buttons.forEach((button) => button.addEventListener('click', (e) => {
   if (!button.classList.contains("active")) {
     buttons.forEach(otherButton => otherButton.classList.remove("active"));
     button.classList.add("active");
+  }
+  if(e.target.id === "clear") {
+    
+    clearGrid(initialGridSize, newGridSize);
   }
 })
 );
@@ -168,6 +173,22 @@ function darkenColor(square) {
     square.style.backgroundColor = `rgb(${Math.round(currentRed)}, ${Math.round(currentGreen)}, ${Math.round(currentBlue)})`;
   });
 }
+
+function clearGrid () {
+  gameGrid.innerHTML = "";
+  const newGridSize = gridSizer.value;
+  gameGrid.style.setProperty("--cssGridSize", newGridSize);
+  drawGrid(newGridSize);
+  span.textContent = `${newGridSize} x ${newGridSize}`;
+}
+
+
+const footer =  document.createElement("div");
+footer.setAttribute("class", "footer")
+const footerPara = document.createElement("p");
+footerPara.innerHTML = `Made by <a href="https://www.linkedin.com/in/mihaly-ale">Mihaly Ale</a> for <a href="https://www.theodinproject.com/">TOP</a> Etch-A-Sketch.`
+footer.appendChild(footerPara);
+gameContainer.parentNode.insertBefore(footer, gameContainer.nextSibling)
 
 
 
