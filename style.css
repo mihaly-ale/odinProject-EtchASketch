@@ -1,136 +1,135 @@
 *,
 ::after,
 ::before {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    background-color: cadetblue;
-    color: black;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    max-width: 1100px;
-    margin: 0 auto;
-    font-family: Impact;
-    max-height: 100vh;
+	background-color: cadetblue;
+	color: black;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	max-width: 1100px;
+	margin: 0 auto;
+	font-family: Impact;
 }
 
 .h1 {
-    color: rgb(3, 3, 3);
-    font-size: 3rem;
-    padding-top: 2rem;
+	color: rgb(3, 3, 3);
+	font-size: 3rem;
+	padding-top: 2rem;
 }
 
 .grid-sizer-container {
-    width: 15rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 2rem;
+	width: 15rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
+	margin-top: 2rem;
 
-    & :first-child {
-        width: 100%;
-    }
+	& :first-child {
+		width: 100%;
+	}
 
-    & .grid-sizer-label {
-        font-size: 2rem;
-        text-align: center;
-    }
+	& .grid-sizer-label {
+		font-size: 2rem;
+		text-align: center;
+	}
 }
 
 .game-container {
-    width: 100%;
-    margin-top: 5rem;
-    display: flex;
-    justify-content: flex-start;
-    gap: 3rem;
-    margin-bottom: 3rem;
+	width: 100%;
+	margin-top: 3rem;
+	display: flex;
+	justify-content: flex-start;
+	gap: 2rem;
+	margin-bottom: 3rem;
 
-    & .game-grid {
-        max-width: 960px;
-        border: 1px double rgb(3, 3, 3, .15);
-        display: grid;
-        align-items: stretch;
-        /* recheck this how to have it in the .grid-size */
-        flex-basis: auto;
-        flex-grow: 1;
-        grid-template-columns: repeat(var(--cssGridSize), 1fr);
-        grid-template-rows: repeat(var(--cssGridSize), 1fr);
+	& .game-grid {
+		max-width: 800px;
+		border: 1px double rgb(3, 3, 3, 0.15);
+		display: grid;
+		align-items: stretch;		
+		flex-basis: auto;
+		flex-grow: 1;
+		grid-template-columns: repeat(var(--cssGridSize), 1fr);
+		grid-template-rows: repeat(var(--cssGridSize), 1fr);
 
-        & .box {
-            border: 1px solid rgb(235, 134, 134, .25);
-            aspect-ratio: 1/1;
-        }
-    }
+		& .box {
+			border: 1px solid rgb(235, 134, 134, 0.25);
+			aspect-ratio: 1/1;
+		}
+	}
 
-    & .game-settings {
-        display: flex;
-        flex-direction: column;
-        gap: 3rem;
+	& .game-settings {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
 
-        .color-picker {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            width: 100px;
-            height: 100px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            align-self: center;
+		.color-picker {
+			appearance: none;
+			width: 100px;
+			height: 100px;
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+			align-self: center;
 
-            &::-webkit-color-swatch {
-                border-radius: 50%;
-                border: 7px solid #000000;
-            }
+			&::-webkit-color-swatch {
+				border-radius: 50%;
+				border: 7px solid #000000;
+			}
 
-            &::-moz-color-swatch {
-                border-radius: 50%;
-                border: 7px solid #000000;
-            }
-        }
+			&::-moz-color-swatch {
+				border-radius: 50%;
+				border: 7px solid #000000;
+			}
+		}
 
-        .color-setting {
-            width: 120px;
-            aspect-ratio: 1/.5;
-            border: none;
-            border-radius: 3px;
-            background-color: antiquewhite;
-            color: black;
-            font-size: 1.15rem;
-            padding: .75rem 1.5rem;
-            cursor: pointer;
-            transition: all 100ms;
+		.color-setting {
+			width: 120px;
+			aspect-ratio: 1/0.45;
+			border: none;
+			border-radius: 3px;
+			background-color: antiquewhite;
+			color: black;
+			font-size: 1.15rem;
+			padding: 0.75em 1.5em;
+			cursor: pointer;
+			transition: all 100ms;
 
-            &:hover {
-                transform: scale(1.2);
-                background-color: rgb(161, 202, 203, .85);
-                outline: 1px solid rgb(61, 56, 56);
-            }
+			&:hover {
+				transform: scale(1.2);
+				background-color: rgb(161, 202, 203, 0.85);
+				outline: 1px solid rgb(61, 56, 56);
+			}
 
-            &.active {
-                outline: 1px solid antiquewhite;
-                background-color: rgb(61, 56, 56);
-                color: antiquewhite;
-            }
-        }
-    }
+			&.active {
+				outline: 1px solid antiquewhite;
+				background-color: rgb(61, 56, 56);
+				color: antiquewhite;
+			}
+		}
+	}
 }
 
 .footer {
-    margin-top: auto;
-    font-family: Arial, Helvetica, sans-serif;
+	margin-top: auto;
+	font-size: 2rem;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-bottom: 1rem;
+	padding-top: 1rem;
 
+	& a {
+		color: antiquewhite;
+	}
 
-    & a {
-        color: antiquewhite};
-
-        & :visited{
-            color: darkgray;
-        }
+	& :visited {
+		color: #5e1b1b;
+	}
 }
