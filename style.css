@@ -46,15 +46,15 @@ body {
 	width: 100%;
 	margin-top: 3rem;
 	display: flex;
-	justify-content: flex-start;
+	justify-content: space-evenly;
 	gap: 2rem;
 	margin-bottom: 3rem;
 
 	& .game-grid {
-		max-width: 800px;
+		max-width: 900px;
 		border: 1px double rgb(3, 3, 3, 0.15);
 		display: grid;
-		align-items: stretch;		
+		align-items: center;
 		flex-basis: auto;
 		flex-grow: 1;
 		grid-template-columns: repeat(var(--cssGridSize), 1fr);
@@ -131,5 +131,32 @@ body {
 
 	& :visited {
 		color: #5e1b1b;
+	}
+}
+
+@media (max-width: 1150px) {
+	.game-container {
+		flex-direction: column;
+		align-items: center;
+
+		& .game-settings {
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+		}
+
+		& .game-grid {
+			width: 600px;
+			margin-inline: 1rem;
+		}
+	}
+}
+
+@media (max-width: 650px) {
+	.game-container {
+		& .game-grid {
+			width: 400px;
+		}
 	}
 }
