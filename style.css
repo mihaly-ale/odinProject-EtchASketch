@@ -49,7 +49,7 @@ body {
 	margin-bottom: 2rem;
 
 	& .game-grid {
-		max-width: 750px;
+		max-width: 450px;
 		border: 1px double rgb(3, 3, 3, 0.15);
 		display: grid;
 		align-items: center;
@@ -90,8 +90,11 @@ body {
 		}
 
 		.color-setting {
-			width: 100px;
-			aspect-ratio: 1/0.4;
+			width: 80px;
+			display: flex;
+  justify-content: center;
+  align-items: center;
+		
 			border: none;
 			border-radius: 3px;
 			background-color: antiquewhite;
@@ -132,7 +135,7 @@ body {
 	}
 }
 
-@media (max-width: 900px) {
+@media (max-width: 800px) {
 	.game-container {
 		flex-direction: column;
 		align-items: center;
@@ -145,7 +148,7 @@ body {
 		}
 
 		& .game-grid {
-			width: 500px;
+			width: 400px;
 			margin-inline: 1rem;
 		}
 	}
