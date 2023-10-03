@@ -13,14 +13,15 @@ body {
 	align-items: center;
 	flex-direction: column;
 	max-width: 1100px;
+	max-height: 100vh;
 	margin: 0 auto;
 	font-family: Impact;
 }
 
 .h1 {
 	color: rgb(3, 3, 3);
-	font-size: 3rem;
-	padding-top: 2rem;
+	font-size: 2.25rem;
+	padding-top: 1.25rem;
 }
 
 .grid-sizer-container {
@@ -29,29 +30,26 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 2rem;
-	margin-top: 2rem;
-
-	& :first-child {
-		width: 100%;
-	}
+	gap: .75rem;
+	margin-top: 1.5rem;
 
 	& .grid-sizer-label {
-		font-size: 2rem;
+		font-size: 1.25rem;
 		text-align: center;
+		font-weight: 300;
 	}
 }
 
 .game-container {
-	width: 100%;
-	margin-top: 3rem;
+	width: 80%;
+	margin-top: 2rem;
 	display: flex;
 	justify-content: space-evenly;
 	gap: 2rem;
-	margin-bottom: 3rem;
+	margin-bottom: 2rem;
 
 	& .game-grid {
-		max-width: 900px;
+		max-width: 750px;
 		border: 1px double rgb(3, 3, 3, 0.15);
 		display: grid;
 		align-items: center;
@@ -69,12 +67,12 @@ body {
 	& .game-settings {
 		display: flex;
 		flex-direction: column;
-		gap: 3rem;
+		gap: 2rem;
 
 		.color-picker {
 			appearance: none;
-			width: 100px;
-			height: 100px;
+			width: 75px;
+			height: 75px;
 			background-color: transparent;
 			border: none;
 			cursor: pointer;
@@ -92,14 +90,14 @@ body {
 		}
 
 		.color-setting {
-			width: 120px;
-			aspect-ratio: 1/0.45;
+			width: 100px;
+			aspect-ratio: 1/0.4;
 			border: none;
 			border-radius: 3px;
 			background-color: antiquewhite;
 			color: black;
-			font-size: 1.15rem;
-			padding: 0.75em 1.5em;
+			font-size: 1rem;
+			padding: 0.5em 1.25em;
 			cursor: pointer;
 			transition: all 100ms;
 
@@ -120,7 +118,7 @@ body {
 
 .footer {
 	margin-top: auto;
-	font-size: 2rem;
+	font-size: 1.25rem;
 	font-family: Arial, Helvetica, sans-serif;
 	margin-bottom: 1rem;
 	padding-top: 1rem;
@@ -134,7 +132,7 @@ body {
 	}
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 900px) {
 	.game-container {
 		flex-direction: column;
 		align-items: center;
@@ -147,7 +145,7 @@ body {
 		}
 
 		& .game-grid {
-			width: 600px;
+			width: 500px;
 			margin-inline: 1rem;
 		}
 	}
@@ -156,7 +154,7 @@ body {
 @media (max-width: 650px) {
 	.game-container {
 		& .game-grid {
-			width: 400px;
+			width: 350px;
 		}
 	}
 }
