@@ -66,7 +66,6 @@ for (let i = 1; i < colorSettings.length; i++) {
 }
 
 //create initial grid for game
-
 const gameGrid = document.createElement('section');
 let initialGridSize = gridSizer.value;
 gameGrid.style.setProperty('--cssGridSize', initialGridSize);
@@ -93,7 +92,6 @@ gridSizer.addEventListener('click', (e) => {
 	drawGrid(newGridSize);
 });
 
-
 const buttons = document.querySelectorAll('.color-setting');
 
 colorPicker.addEventListener('input', (e) => {
@@ -107,15 +105,13 @@ buttons.forEach((button) =>
 	button.addEventListener('click', (e) => {
 		currentMode = button.id;
 		if (!button.classList.contains('active')) {
-			buttons.forEach((otherButton) =>
-				otherButton.classList.remove('active')
-			);
+			buttons.forEach((otherButton) => otherButton.classList.remove('active'));
 			button.classList.add('active');
 		}
 		if (e.target.id === 'clear') {
 			clearGrid(initialGridSize, newGridSize);
 		}
-	})
+	}),
 );
 
 // draw lines in the grid
@@ -168,12 +164,10 @@ function darkenColor(square) {
 	square.addEventListener('click', (e) => {
 		// Calculate the new color values based on the percentage reduction
 		let percentageValue = 10;
-		currentRed -=
-			currentRed >= 0 ? initialRed * (percentageValue / 100) : 0; // reduce currentRed value with 10% of the initial color if currentRed greater than or equal 0, otherwise reduce it with 0;
+		currentRed -= currentRed >= 0 ? initialRed * (percentageValue / 100) : 0; // reduce currentRed value with 10% of the initial color if currentRed greater than or equal 0, otherwise reduce it with 0;
 		currentGreen -=
 			currentGreen >= 0 ? initialGreen * (percentageValue / 100) : 0;
-		currentBlue -=
-			currentBlue >= 0 ? initialBlue * (percentageValue / 100) : 0;
+		currentBlue -= currentBlue >= 0 ? initialBlue * (percentageValue / 100) : 0;
 		square.style.backgroundColor = `rgb(${Math.round(currentRed)}, ${Math.round(currentGreen)}, ${Math.round(currentBlue)})`;
 	});
 }
