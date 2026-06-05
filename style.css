@@ -6,6 +6,10 @@
 	padding: 0;
 }
 
+:root {
+	--canvas-color: rgb(250, 235, 215);
+}
+
 body {
 	background-color: cadetblue;
 	color: black;
@@ -80,39 +84,43 @@ body {
 
 			&::-webkit-color-swatch {
 				border-radius: 50%;
-				border: 7px solid #000000;
+				border: 6px solid #000000;
 			}
 
 			&::-moz-color-swatch {
 				border-radius: 50%;
-				border: 7px solid #000000;
+				border: 6px solid #000000;
 			}
 		}
 
-		.color-setting {
+		.color-button {
 			width: 80px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			border: none;
 			border-radius: 3px;
-			background-color: antiquewhite;
+			background-color: var(--canvas-color);
 			color: black;
+			outline: 2px solid transparent;
 			font-size: 1rem;
 			padding: 0.5em 1.25em;
 			cursor: pointer;
-			transition: all 100ms;
+			transition: all 250ms;
+
+			&:hover,
+			&.active {
+				transform: scale(1.1);
+			}
 
 			&:hover {
-				transform: scale(1.2);
-				background-color: rgb(161, 202, 203, 0.85);
-				outline: 1px solid rgb(61, 56, 56);
+				outline-color: rgb(61, 56, 56);
 			}
 
 			&.active {
-				outline: 1px solid antiquewhite;
+				outline-color: var(--canvas-color);
 				background-color: rgb(61, 56, 56);
-				color: antiquewhite;
+				color: var(--canvas-color);
 			}
 		}
 	}
