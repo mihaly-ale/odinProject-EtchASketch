@@ -1,13 +1,15 @@
 let newGridSize = '0';
-let currentMode = 'color-picker';
+let currentMode = 'color-button';
+const CANVAS_COLOR = 'rgb(250, 235, 215)';
+const CURRENT_COLOR = 'rgb(128, 0, 128)';
 
 //add buttons to choose color
-const colorSettings = [
-	{ name: 'color-picker', colorSetter: pickColor },
-	{ name: 'random', colorSetter: randomColor },
-	{ name: 'darken', colorSetter: darkenColor },
-	{ name: 'eraser', colorSetter: eraseColor },
-	{ name: 'clear', colorSetter: clearGrid },
+const colorButtons = [
+	{ id: 'color-button', mode: pickColor },
+	{ id: 'random', mode: randomColor },
+	{ id: 'darken', mode: darkenColor },
+	{ id: 'eraser', mode: eraseColor },
+	{ id: 'clear', mode: clearGrid },
 ];
 
 //create h1
@@ -17,26 +19,26 @@ h1.classList.add('h1');
 document.body.appendChild(h1);
 
 // create slider for drawGrid input paramter
-const gridSizerContainer = document.createElement('div');
-document.body.appendChild(gridSizerContainer);
-gridSizerContainer.setAttribute('id', 'grid-sizer-container');
-gridSizerContainer.setAttribute('class', 'grid-sizer-container');
-const gridSizer = document.createElement('input');
-gridSizer.setAttribute('type', 'range');
-gridSizer.setAttribute('min', '2');
-gridSizer.setAttribute('max', '30');
-gridSizer.setAttribute('id', 'grid-sizer');
-gridSizer.setAttribute('class', 'grid-sizer');
-gridSizer.setAttribute('value', '3');
-const gridSizerLabel = document.createElement('label');
-gridSizerLabel.setAttribute('for', 'grid-sizer');
-gridSizerLabel.setAttribute('id', 'grid-sizer-label');
-gridSizerLabel.classList.add('grid-sizer-label');
-const span = document.createElement('span');
-span.textContent = `${gridSizer.value} x ${gridSizer.value}`;
-gridSizerLabel.appendChild(span);
-gridSizerContainer.appendChild(gridSizer);
-gridSizerContainer.appendChild(gridSizerLabel);
+const sliderContainer = document.createElement('div');
+document.body.appendChild(sliderContainer);
+sliderContainer.setAttribute('id', 'slider-container');
+sliderContainer.setAttribute('class', 'slider-container');
+const slider = document.createElement('input');
+slider.setAttribute('type', 'range');
+slider.setAttribute('min', '2');
+slider.setAttribute('max', '30');
+slider.setAttribute('id', 'slider');
+slider.setAttribute('class', 'slider');
+slider.setAttribute('value', '3');
+const sliderLabel = document.createElement('label');
+sliderLabel.setAttribute('for', 'slider');
+sliderLabel.setAttribute('id', 'slider-label');
+sliderLabel.classList.add('slider-label');
+const sliderLabelSpan = document.createElement('span');
+sliderLabelSpan.textContent = `${slider.value} x ${slider.value}`;
+sliderLabel.appendChild(sliderLabelSpan);
+sliderContainer.appendChild(slider);
+sliderContainer.appendChild(sliderLabel);
 
 //create layout for game (children: gameSettings, gameGrid)
 const gameContainer = document.createElement('div');
@@ -51,23 +53,23 @@ gameContainer.appendChild(gameSettings);
 // create color picker
 const colorPicker = document.createElement('input');
 colorPicker.setAttribute('type', 'color');
-colorPicker.setAttribute('value', '#800080');
+colorPicker.setAttribute('value', `${CURRENT_COLOR}`);
 colorPicker.setAttribute('class', 'color-picker');
-colorPicker.setAttribute('id', `${colorSettings[0].name}`);
+colorPicker.setAttribute('id', `${colorButtons[0].id}`);
 gameSettings.appendChild(colorPicker);
 
 // create color picking buttons
-for (let i = 1; i < colorSettings.length; i++) {
+for (let i = 1; i < colorButtons.length; i++) {
 	const elem = document.createElement('button');
-	elem.textContent = colorSettings[i].name;
-	elem.classList.add('color-setting');
-	elem.setAttribute('id', colorSettings[i].name);
+	elem.textContent = colorButtons[i].id;
+	elem.classList.add('color-button');
+	elem.setAttribute('id', colorButtons[i].id);
 	gameSettings.appendChild(elem);
 }
 
 //create initial grid for game
 const gameGrid = document.createElement('section');
-let initialGridSize = gridSizer.value;
+let initialGridSize = slider.value;
 gameGrid.style.setProperty('--cssGridSize', initialGridSize);
 gameGrid.classList.add('game-grid');
 
@@ -76,7 +78,7 @@ function drawGrid(initialGridSize) {
 	for (let i = 1; i <= totalBoxesCount; i++) {
 		const box = document.createElement('div');
 		box.classList.add('box');
-		box.setAttribute('style', 'background-color: rgb(250, 235, 215)');
+		box.setAttribute('style', `background-color:${CANVAS_COLOR}`);
 		gameGrid.appendChild(box);
 	}
 }
@@ -84,19 +86,19 @@ drawGrid(initialGridSize);
 gameContainer.appendChild(gameGrid);
 
 // when the slider clicked, the gameGrid gets the new size
-gridSizer.addEventListener('click', (e) => {
+slider.addEventListener('click', (e) => {
 	newGridSize = e.target.value;
 	gameGrid.style.setProperty('--cssGridSize', newGridSize);
 	gameGrid.innerHTML = '';
-	span.textContent = `${newGridSize} x ${newGridSize}`;
+	sliderLabelSpan.textContent = `${newGridSize} x ${newGridSize}`;
 	drawGrid(newGridSize);
 });
 
-const buttons = document.querySelectorAll('.color-setting');
+const buttons = document.querySelectorAll('.color-button');
 
 colorPicker.addEventListener('input', (e) => {
-	if (currentMode != 'color-picker') {
-		currentMode = 'color-picker';
+	if (currentMode != 'color-button') {
+		currentMode = 'color-button';
 		buttons.forEach((button) => button.classList.remove('active'));
 	}
 });
@@ -122,16 +124,16 @@ function drawLine(e) {
 	setColor(square);
 }
 
-// return the function from the colorSettings array
+// return the function from the colorButtons array
 function getColor(currentMode) {
-	if (currentMode !== 'color-picker') {
-		for (let i = 1; i < colorSettings.length; i++) {
-			if (currentMode === colorSettings[i].name) {
-				return colorSettings[i].colorSetter;
+	if (currentMode !== 'color-button') {
+		for (let i = 1; i < colorButtons.length; i++) {
+			if (currentMode === colorButtons[i].id) {
+				return colorButtons[i].mode;
 			}
 		}
 	}
-	return colorSettings[0].colorSetter;
+	return colorButtons[0].mode;
 }
 
 function pickColor(square) {
@@ -147,7 +149,7 @@ function randomColor(square) {
 
 function eraseColor(square) {
 	if (square.className === 'box' && currentMode === 'eraser') {
-		square.style.backgroundColor = 'rgb(250, 235, 215)';
+		square.style.backgroundColor = `${CANVAS_COLOR}`;
 	}
 }
 
@@ -173,11 +175,12 @@ function darkenColor(square) {
 }
 
 function clearGrid() {
+	console.log('here');
 	gameGrid.innerHTML = '';
-	const newGridSize = gridSizer.value;
+	const newGridSize = slider.value;
 	gameGrid.style.setProperty('--cssGridSize', newGridSize);
 	drawGrid(newGridSize);
-	span.textContent = `${newGridSize} x ${newGridSize}`;
+	sliderLabelSpan.textContent = `${newGridSize} x ${newGridSize}`;
 }
 
 const footer = document.createElement('div');
