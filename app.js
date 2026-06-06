@@ -69,7 +69,7 @@ for (let i = 1; i < colorButtons.length; i++) {
 
 //create initial grid for game
 const gameGrid = document.createElement('section');
-let initialGridSize = slider.value;
+const initialGridSize = slider.value;
 gameGrid.style.setProperty('--cssGridSize', initialGridSize);
 gameGrid.classList.add('game-grid');
 
@@ -85,8 +85,8 @@ function drawGrid(initialGridSize) {
 drawGrid(initialGridSize);
 gameContainer.appendChild(gameGrid);
 
-// when the slider clicked, the gameGrid gets the new size
-slider.addEventListener('click', (e) => {
+// when the slider is interacted with, the gameGrid gets the new size
+slider.addEventListener('input', (e) => {
 	newGridSize = e.target.value;
 	gameGrid.style.setProperty('--cssGridSize', newGridSize);
 	gameGrid.innerHTML = '';
@@ -97,7 +97,7 @@ slider.addEventListener('click', (e) => {
 const buttons = document.querySelectorAll('.color-button');
 
 colorPicker.addEventListener('input', (e) => {
-	if (currentMode != 'color-button') {
+	if (currentMode !== 'color-button') {
 		currentMode = 'color-button';
 		buttons.forEach((button) => button.classList.remove('active'));
 	}
@@ -117,23 +117,14 @@ buttons.forEach((button) =>
 );
 
 // draw lines in the grid
-gameGrid.addEventListener('mouseover', drawLine);
-function drawLine(e) {
+['mouseover', 'pointerdown'].forEach((ev) =>
+	gameGrid.addEventListener(ev, paintSquare),
+);
+function paintSquare(e) {
 	const square = e.target;
-	const setColor = getColor(currentMode);
-	setColor(square);
-}
-
-// return the function from the colorButtons array
-function getColor(currentMode) {
-	if (currentMode !== 'color-button') {
-		for (let i = 1; i < colorButtons.length; i++) {
-			if (currentMode === colorButtons[i].id) {
-				return colorButtons[i].mode;
-			}
-		}
-	}
-	return colorButtons[0].mode;
+	const btn = colorButtons.find((b) => b.id === currentMode) || colorButtons[0];
+	//btnMode matches a function name
+	btn.mode(square);
 }
 
 function pickColor(square) {
@@ -141,9 +132,9 @@ function pickColor(square) {
 }
 
 function randomColor(square) {
-	r = Math.floor(Math.random() * 255);
-	g = Math.floor(Math.random() * 255);
-	b = Math.floor(Math.random() * 255);
+	let r = Math.floor(Math.random() * 255);
+	let g = Math.floor(Math.random() * 255);
+	let b = Math.floor(Math.random() * 255);
 	square.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 }
 
@@ -157,30 +148,15 @@ function darkenColor(square) {
 	let rgb = square.style.backgroundColor;
 	let pattern = /(\d{1,3})/gm;
 	let matches = rgb.match(pattern);
-	const [initialRed, initialGreen, initialBlue] = matches.map(Number);
-
-	let currentRed = initialRed;
-	let currentGreen = initialGreen;
-	let currentBlue = initialBlue;
-
-	square.addEventListener('click', (e) => {
-		// Calculate the new color values based on the percentage reduction
-		let percentageValue = 10;
-		currentRed -= currentRed >= 0 ? initialRed * (percentageValue / 100) : 0; // reduce currentRed value with 10% of the initial color if currentRed greater than or equal 0, otherwise reduce it with 0;
-		currentGreen -=
-			currentGreen >= 0 ? initialGreen * (percentageValue / 100) : 0;
-		currentBlue -= currentBlue >= 0 ? initialBlue * (percentageValue / 100) : 0;
-		square.style.backgroundColor = `rgb(${Math.round(currentRed)}, ${Math.round(currentGreen)}, ${Math.round(currentBlue)})`;
-	});
+	const [red, green, blue] = matches.map(Number);
+	const factor = 0.9;
+	square.style.backgroundColor = `rgb(${Math.round(red * factor)}, ${Math.round(green * factor)}, ${Math.round(blue * factor)})`;
 }
 
 function clearGrid() {
-	console.log('here');
-	gameGrid.innerHTML = '';
-	const newGridSize = slider.value;
-	gameGrid.style.setProperty('--cssGridSize', newGridSize);
-	drawGrid(newGridSize);
-	sliderLabelSpan.textContent = `${newGridSize} x ${newGridSize}`;
+	document.querySelectorAll('.box').forEach((box) => {
+		box.style.backgroundColor = `${CANVAS_COLOR}`;
+	});
 }
 
 const footer = document.createElement('div');
